@@ -28,7 +28,10 @@
       "type": "node",
       "request": "launch",
       "name": "Jest",
-      "env": {},
+      "env": {
+        "MONGODB_URL": "mongodb://localhost:27017",
+        "MONGODB_DB": "mongodb_test"
+      },
       "runtimeArgs": [
         "--inspect-brk",
         "${workspaceRoot}/node_modules/.bin/jest",
@@ -44,7 +47,10 @@
       "type": "node",
       "request": "launch",
       "name": "Jest: $file",
-      "env": {},
+      "env": {
+        "MONGODB_URL": "mongodb://localhost:27017",
+        "MONGODB_DB": "mongodb_test"
+      },
       "runtimeArgs": [
         "--inspect-brk",
         "${workspaceRoot}/node_modules/.bin/jest",
