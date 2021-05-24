@@ -1,5 +1,9 @@
-describe('example', () => {
-  test('should success', () => {
-    expect(1 + 1).toEqual(2);
+const index = require('../lib/index');
+
+describe('index.js', () => {
+  test('should contain modules', () => {
+    ['MongoManager'].forEach(property => {
+      expect(index).toHaveProperty(property);
+    });
   });
 });
