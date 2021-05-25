@@ -96,7 +96,7 @@ describe('mongo-comparator.js', () => {
         ]);
       });
 
-      test('should success when action do something in multiple collections', async () => {
+      test('should success when action do something in multiple collections (in-place update)', async () => {
         await manager.UserCollection.insertMany([
           { username: 'trubavuong' },
           { username: 'vuongtru' },
@@ -117,6 +117,48 @@ describe('mongo-comparator.js', () => {
             await manager.UserCollection.updateOne(
               { username: 'trubavuong' },
               { $set: { name: 'Vuong Tru' } },
+            );
+
+            await manager.PostCollection.updateOne(
+              { content: 'Bye' },
+              { $set: { content: 'See you soon' } },
+            );
+          },
+        });
+
+        expect(same).toEqual([]);
+
+        expect(differ).toEqual([
+          manager.UserCollection,
+          manager.PostCollection,
+        ]);
+      });
+
+      test('should success when action do something in multiple collections (unchange quantity)', async () => {
+        await manager.UserCollection.insertMany([
+          { username: 'trubavuong' },
+          { username: 'vuongtru' },
+          { username: 'alice' },
+        ]);
+
+        await manager.PostCollection.insertMany([
+          { username: 'trubavuong', content: 'Hello World' },
+          { username: 'trubavuong', content: 'Bye' },
+          { username: 'vuongtru', content: 'Hi Kitty' },
+        ]);
+
+        const { same, differ } = await MongoComparator.compareCollectionsAfterAction({
+          collections: [
+            manager.UserCollection,
+            manager.PostCollection,
+          ],
+          action: async () => {
+            await manager.UserCollection.deleteOne(
+              { username: 'alice' },
+            );
+
+            await manager.UserCollection.insertOne(
+              { username: 'bob' },
             );
 
             await manager.PostCollection.updateOne(
