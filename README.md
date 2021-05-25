@@ -1,6 +1,6 @@
 # mongodb
 
-MongoDB helper
+Management and migration tools for MongoDB
 
 ## Install
 
