@@ -1,3 +1,14 @@
+## 2.0.0 (2021-05-25)
+
+##### Documentation Changes
+
+*  add usage section ([3d2e6abb](https://github.com/trubavuong/mongodb/commit/3d2e6abb5f3529972d3c740c6db87e019c87f90c))
+*  update package description ([9f08edd3](https://github.com/trubavuong/mongodb/commit/9f08edd35dc7f4a320ceb816cc2213849bb40b55))
+
+##### Other Changes
+
+*  remove MongoComparator ([8544b397](https://github.com/trubavuong/mongodb/commit/8544b39756b29f3a6410cec47a8b59b81405a214))
+
 ### 1.1.0 (2021-05-25)
 
 ##### Documentation Changes
