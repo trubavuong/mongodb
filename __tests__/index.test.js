@@ -5,6 +5,7 @@ describe('index.js', () => {
     [
       'og',
       'MongoManager',
+      'MongoMigrator',
     ].forEach(property => {
       expect(index).toHaveProperty(property);
     });

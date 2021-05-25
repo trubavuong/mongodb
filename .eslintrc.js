@@ -13,5 +13,8 @@ module.exports = {
       consistent: true,
       minProperties: 4,
     }],
+    'no-underscore-dangle': ['error', {
+      allow: ['_id'],
+    }],
   },
 };
