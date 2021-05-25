@@ -8,6 +8,64 @@ Management and migration tools for MongoDB
 $ npm install @trubavuong/mongodb
 ```
 
+## Usage
+
+### Connect & query
+
+```
+const { MongoManager } = require('@trubavuong/mongodb');
+
+const manager = new MongoManager({
+  url: 'mongodb://localhost:27017',
+  database: 'example',
+  collections: {
+    UserCollection: 'user',
+  },
+});
+
+await manager.connect();
+
+const users = await manager.UserCollection.find().toArray();
+
+await manager.close();
+```
+
+### Migration
+
+```
+const { MongoMigrator } = require('@trubavuong/mongodb');
+
+const migrator = new MongoMigrator({
+  manager,
+  migrationCollectionAlias: 'MigrationCollection',
+  migrationDirectory: 'migrations',
+});
+
+await migrator.createNewMigrationFile('insert-comments');
+
+await migrator.migrate();
+
+await migrator.status();
+```
+
+As above example, all migration files will be stored in `migrations` directory.
+
+Each file named with format `{version}.{description}.js`:
+
+- `version`: integer number
+- `description`: string, accept `a-z` and `-` characters only
+
+Each file is a module like this:
+
+```
+module.exports = async (manager, session) => {};
+```
+
+- `manager`: MongoManager instance
+- `session`: MongoDB session object, supports transaction
+
+Note: you should create your own cli script when interact with migration steps (create a new migration file, check status, and execute migrations).
+
 ## APIs
 
 ### MongoManager
