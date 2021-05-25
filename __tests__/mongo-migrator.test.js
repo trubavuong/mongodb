@@ -9,6 +9,7 @@ describe('mongo-migrator.js', () => {
   describe('MongoMigrator', () => {
     const migrationDir = path.join(__dirname, 'migrations');
     const migrationEmptyDir = path.join(__dirname, 'migrations-empty');
+    const migrationRuntimeErrorDir = path.join(__dirname, 'migrations-runtime-error');
     const migrationDuplicatedVersionErrorDir = path.join(__dirname, 'migrations-duplicated-version-error');
     const migrationInvalidFilenameErrorDir = path.join(__dirname, 'migrations-invalid-filename-error');
 
@@ -350,6 +351,57 @@ describe('mongo-migrator.js', () => {
         expect(users).toHaveLength(1);
 
         expect(users[0].username).toEqual('the-final');
+      });
+
+      test('should error when does not apply any migrations then get runtime error', async () => {
+        migrator = new MongoMigrator({
+          manager,
+          migrationCollectionAlias: 'MigrationCollection',
+          migrationDirectory: migrationRuntimeErrorDir,
+        });
+
+        let users = await manager.UserCollection.find().toArray();
+        expect(users).toHaveLength(0);
+
+        await expect(migrator.migrate()).rejects.toThrow('Runtime error');
+
+        const items = await migrator.MigrationCollection.find().toArray();
+        expect(items).toHaveLength(0);
+
+        users = await manager.UserCollection.find().toArray();
+        expect(users).toHaveLength(0);
+      });
+
+      test('should error when does apply some migrations then get runtime error', async () => {
+        migrator = new MongoMigrator({
+          manager,
+          migrationCollectionAlias: 'MigrationCollection',
+          migrationDirectory: migrationRuntimeErrorDir,
+        });
+
+        const beforeDate = new Date(Date.now() - 1);
+
+        await migrator.MigrationCollection.insertOne({
+          version: 1,
+          filename: '1.create-db.js',
+          appliedTime: beforeDate,
+        });
+
+        let users = await manager.UserCollection.find().toArray();
+        expect(users).toHaveLength(0);
+
+        await expect(migrator.migrate()).rejects.toThrow('Runtime error');
+
+        const items = await migrator.MigrationCollection.find().toArray();
+        expect(items).toHaveLength(1);
+
+        expect(items[0].version).toEqual(1);
+        expect(items[0].filename).toEqual('1.create-db.js');
+        expect(items[0].appliedTime).toBeInstanceOf(Date);
+        expect(items[0].appliedTime.getTime()).toEqual(beforeDate.getTime());
+
+        users = await manager.UserCollection.find().toArray();
+        expect(users).toHaveLength(0);
       });
     });
   });
