@@ -1,3 +1,27 @@
+### 1.1.0 (2021-05-25)
+
+##### Documentation Changes
+
+*  add MongoMigrator APIs section ([8c55b25f](https://github.com/trubavuong/mongodb/commit/8c55b25f741e2906fad6909fb117cc0c3f603cfa))
+
+##### New Features
+
+*  export MongoMigrator ([47906f4d](https://github.com/trubavuong/mongodb/commit/47906f4db7007fb6fe61bd2a305fa6a3bb2f735a))
+*  add MongoMigrator ([a9de7509](https://github.com/trubavuong/mongodb/commit/a9de7509fd55fc9cefa2206ea61841f774ba0be1))
+*  add MongoComparator ([32111bf2](https://github.com/trubavuong/mongodb/commit/32111bf24aa2382de0d4852852df11031e74e062))
+
+##### Bug Fixes
+
+*  wrap migration execution in transaction ([ea22d633](https://github.com/trubavuong/mongodb/commit/ea22d63390af72f6f6725ed96dee0a885c1dc0a3))
+
+##### Refactors
+
+*  remove helper ([528d5562](https://github.com/trubavuong/mongodb/commit/528d5562c19fa6019b2f9e7a6abc4b548cd9e572))
+
+##### Tests
+
+*  add test for MongoComparator to cover 100% ([6ce42513](https://github.com/trubavuong/mongodb/commit/6ce42513d8ae7e5e8a06f560b1575404592c94df))
+
 ## 1.0.0 (2021-05-24)
 
 ##### Documentation Changes
