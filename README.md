@@ -66,6 +66,14 @@ module.exports = async (manager, session) => {};
 
 Note: you should create your own cli script when interact with migration steps (create a new migration file, check status, and execute migrations).
 
+## Access the original MongoDB lib
+
+```
+const { og } = require('@trubavuong/mongodb');
+
+// og.ObjectId
+```
+
 ## APIs
 
 ### MongoManager
@@ -78,9 +86,10 @@ const { MongoManager } = require('@trubavuong/mongodb');
 
 ```
 const manager = new MongoManager({
-  url: 'mongodb://localhost:27017', // endpoint
-  database: 'example',              // database name
-  collections: {                    // alias - collection name map
+  url: 'mongodb://localhost:27017', // required, endpoint
+  options: {},                      // optional
+  database: 'example',              // required, database name
+  collections: {                    // optional, alias - collection name map
     UserCollection: 'user',
     PostCollection: 'post',
   },
