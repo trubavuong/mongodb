@@ -1,3 +1,9 @@
+#### 2.0.1 (2021-05-29)
+
+##### Documentation Changes
+
+*  update doc about og ([7696d9d2](https://github.com/trubavuong/mongodb/commit/7696d9d2722f305cf0ab2528f1041df97daead9d))
+
 ## 2.0.0 (2021-05-25)
 
 ##### Documentation Changes
